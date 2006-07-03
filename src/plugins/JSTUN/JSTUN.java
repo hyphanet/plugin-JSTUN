@@ -1,3 +1,5 @@
+package plugins;
+
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -15,7 +17,7 @@ import freenet.pluginmanager.PluginRespirator;
 
 // threadless in the sense that it doesn't need a thread running all the time.
 // but getAddress() can and will block!
-public class JSTUNPlugin implements FredPlugin, FredPluginIPDetector, FredPluginThreadless {
+public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless {
 
 	DetectedIP runTest(InetAddress iaddress) {
 		try {
@@ -127,11 +129,11 @@ public class JSTUNPlugin implements FredPlugin, FredPluginIPDetector, FredPlugin
 				System.err.println("Caught "+t);
 				t.printStackTrace();
 			}
-			synchronized(JSTUNPlugin.this) {
+			synchronized(JSTUN.this) {
 				detectors.remove(this);
 				if(ip != null)
 					detected.add(ip);
-				JSTUNPlugin.this.notifyAll();
+				JSTUN.this.notifyAll();
 			}
 		}
 	}
