@@ -9,6 +9,7 @@ import java.util.HashSet;
 
 import de.javawi.jstun.test.DiscoveryInfo;
 import de.javawi.jstun.test.DiscoveryTest;
+import freenet.crypt.RandomSource;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginIPDetector;
@@ -21,29 +22,39 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 
 	// From http://www.voip-info.org/wiki-STUN
 	String[] publicSTUNServers = new String[] {
-			""
-	}
+			"stun.fwdnet.net",
+			"stun.fwd.org",
+			"stun01.sipphone.com",
+			"stun.softjoys.com",
+			"stun.voipbuster.org",
+			"stun.voxgratia.org",
+			"stun.xten.com"
+	};
 	
 	DetectedIP runTest(InetAddress iaddress) {
-		String stunServer = "stun.xten.com";
-		try {
-			DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
-			// iphone-stun.freenet.de:3478
-			// larry.gloo.net:3478
-			// stun.xten.net:3478
-			DiscoveryInfo info = test.test();
-			System.out.println(info);
-			return convert(info);
-		} catch (BindException be) {
-			System.out.println(iaddress.toString() + ": " + be.getMessage());
-			return null;
-		} catch (UnknownHostException e) {
-			System.err.println("Could not find the STUN server "+stunServer+" : "+e+" - DNS problems?");
-			return null;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			return null;
+		Random r = new Random(); // FIXME use something safer?
+		Vector v = new Vector(publicSTUNServers.length);
+		for(int i=0;i<publicSTUNServers.length;i++)
+			v.add(publicSTUNServers[i]);
+		while(!v.isEmpty()) {
+			String stunServer = v.remove(r.nextInt(v.size()));
+			try {
+				DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
+				// iphone-stun.freenet.de:3478
+				// larry.gloo.net:3478
+				// stun.xten.net:3478
+				DiscoveryInfo info = test.test();
+				System.out.println("Successful STUN discovery!:");
+				System.out.println(info);
+				return convert(info);
+			} catch (BindException be) {
+				System.err.println(iaddress.toString() + ": " + be.getMessage());
+			} catch (UnknownHostException e) {
+				System.err.println("Could not find the STUN server "+stunServer+" : "+e+" - DNS problems? Trying another...");
+			} catch (Exception e) {
+				System.err.println("Failed to run STUN to server "+stunServer+": "+e+" - trying another, report if persistent");
+				e.printStackTrace();
+			}
 		}
 	}
 	
