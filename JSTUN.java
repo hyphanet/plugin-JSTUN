@@ -40,7 +40,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		for(int i=0;i<publicSTUNServers.length;i++)
 			v.add(publicSTUNServers[i]);
 		while(!v.isEmpty()) {
-			String stunServer = v.remove(r.nextInt(v.size()));
+			String stunServer = (String) v.remove(r.nextInt(v.size()));
 			try {
 				DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
 				// iphone-stun.freenet.de:3478
@@ -59,6 +59,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				e.printStackTrace();
 			}
 		}
+		return null;
 	}
 	
 	private DetectedIP convert(DiscoveryInfo info) {
