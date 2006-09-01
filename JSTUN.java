@@ -48,7 +48,6 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				// stun.xten.net:3478
 				DiscoveryInfo info = test.test();
 				if(info.isBlockedUDP() && !v.isEmpty()) {
-					blockCount++;
 					System.err.println("Server unreachable?: "+stunServer);
 					continue;
 				}
