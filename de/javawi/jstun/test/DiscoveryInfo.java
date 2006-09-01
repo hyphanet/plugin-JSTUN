@@ -139,7 +139,7 @@ public class DiscoveryInfo {
 		}
 		sb.append("Result: ");
 		if (openAccess) sb.append("Open access to the Internet.\n");
-		if (blockedUDP) sb.append("Firewall blocks UDP.\n");
+		if (blockedUDP) sb.append("Firewall blocks UDP or server down.\n");
 		if (fullCone) sb.append("Full Cone NAT handles connections.\n");
 		if (restrictedCone) sb.append("Restricted Cone NAT handles connections.\n");
 		if (portRestrictedCone) sb.append("Port restricted Cone NAT handles connections.\n");

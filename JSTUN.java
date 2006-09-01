@@ -47,7 +47,12 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				// larry.gloo.net:3478
 				// stun.xten.net:3478
 				DiscoveryInfo info = test.test();
-				System.out.println("Successful STUN discovery!:");
+				if(info.isBlockedUDP() && !v.isEmpty()) {
+					blockCount++;
+					System.err.println("Server unreachable?: "+stunServer);
+					continue;
+				}
+				System.out.println("Successful STUN discovery from "+stunServer+"!:");
 				System.out.println(info);
 				return convert(info);
 			} catch (BindException be) {
