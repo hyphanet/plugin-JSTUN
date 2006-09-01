@@ -19,8 +19,13 @@ import freenet.pluginmanager.PluginRespirator;
 // but getAddress() can and will block!
 public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless {
 
+	// From http://www.voip-info.org/wiki-STUN
+	String[] publicSTUNServers = new String[] {
+			""
+	}
+	
 	DetectedIP runTest(InetAddress iaddress) {
-		String stunServer = stunServer;
+		String stunServer = "stun.xten.com";
 		try {
 			DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
 			// iphone-stun.freenet.de:3478
