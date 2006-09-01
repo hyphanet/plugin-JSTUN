@@ -20,8 +20,9 @@ import freenet.pluginmanager.PluginRespirator;
 public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless {
 
 	DetectedIP runTest(InetAddress iaddress) {
+		String stunServer = stunServer;
 		try {
-			DiscoveryTest test = new DiscoveryTest(iaddress, "stun.xten.net", 3478);
+			DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
 			// iphone-stun.freenet.de:3478
 			// larry.gloo.net:3478
 			// stun.xten.net:3478
@@ -30,6 +31,9 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			return convert(info);
 		} catch (BindException be) {
 			System.out.println(iaddress.toString() + ": " + be.getMessage());
+			return null;
+		} catch (UnknownHostException e) {
+			System.err.println("Could not find the STUN server "+stunServer+" : "+e+" - DNS problems?");
 			return null;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
