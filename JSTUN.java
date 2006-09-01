@@ -58,6 +58,8 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				System.err.println(iaddress.toString() + ": " + be.getMessage());
 			} catch (UnknownHostException e) {
 				System.err.println("Could not find the STUN server "+stunServer+" : "+e+" - DNS problems? Trying another...");
+			} catch (SocketException e) {
+				System.err.println("Could not connect to the STUN server: "+stunServer+" : "+e+" - trying another...");
 			} catch (Exception e) {
 				System.err.println("Failed to run STUN to server "+stunServer+": "+e+" - trying another, report if persistent");
 				e.printStackTrace();
