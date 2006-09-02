@@ -1,4 +1,4 @@
-package de.javawi.jstun.test.demo;
+package plugins.JSTUN.de.javawi.jstun.test.demo;
 
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import de.javawi.jstun.test.BindingLifetimeTest;
+import plugins.JSTUN.de.javawi.jstun.test.BindingLifetimeTest;
 
 public class BindingLifetimeTestDemo {
 	public static void main(String[] args) {

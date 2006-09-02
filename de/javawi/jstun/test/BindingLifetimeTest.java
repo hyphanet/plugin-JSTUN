@@ -18,16 +18,16 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package de.javawi.jstun.test;
+package plugins.JSTUN.de.javawi.jstun.test;
 
 import java.util.logging.*;
 import java.util.*;
 import java.io.*;
 import java.net.*;
 
-import de.javawi.jstun.attribute.*;
-import de.javawi.jstun.header.*;
-import de.javawi.jstun.util.UtilityException;
+import plugins.JSTUN.de.javawi.jstun.attribute.*;
+import plugins.JSTUN.de.javawi.jstun.header.*;
+import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
 public class BindingLifetimeTest {
 	private static Logger logger = Logger.getLogger("de.javawi.stun.test.BindingLifetimeTest");

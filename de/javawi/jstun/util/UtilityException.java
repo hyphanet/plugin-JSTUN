@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package de.javawi.jstun.util;
+package plugins.JSTUN.de.javawi.jstun.util;
 
 public class UtilityException extends Exception {
 	private static final long serialVersionUID = 3545800974716581680L;
