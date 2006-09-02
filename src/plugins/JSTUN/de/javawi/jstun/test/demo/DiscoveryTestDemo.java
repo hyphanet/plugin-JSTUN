@@ -1,4 +1,4 @@
-package de.javawi.jstun.test.demo;
+package plugins.JSTUN.de.javawi.jstun.test.demo;
 
 import java.net.BindException;
 import java.net.InetAddress;
@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import de.javawi.jstun.test.DiscoveryTest;
+import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
 
 public class DiscoveryTestDemo implements Runnable {
 	InetAddress iaddress;

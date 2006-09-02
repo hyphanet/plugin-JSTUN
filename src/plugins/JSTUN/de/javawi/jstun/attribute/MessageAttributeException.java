@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package de.javawi.jstun.attribute;
+package plugins.JSTUN.de.javawi.jstun.attribute;
 
 public class MessageAttributeException extends Exception {
 	private static final long serialVersionUID = 3258131345099404850L;

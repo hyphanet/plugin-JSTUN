@@ -1,4 +1,4 @@
-package plugins;
+package plugins.JSTUN;
 
 import java.net.BindException;
 import java.net.InetAddress;
@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Vector;
 import java.util.Random;
 
-import de.javawi.jstun.test.DiscoveryInfo;
-import de.javawi.jstun.test.DiscoveryTest;
+import plugins.JSTUN.de.javawi.jstun.test.DiscoveryInfo;
+import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
 import freenet.crypt.RandomSource;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;

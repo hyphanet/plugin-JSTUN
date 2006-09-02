@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package de.javawi.jstun.test;
+package plugins.JSTUN.de.javawi.jstun.test;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -30,16 +30,16 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.logging.Logger;
 
-import de.javawi.jstun.attribute.ChangeRequest;
-import de.javawi.jstun.attribute.ChangedAddress;
-import de.javawi.jstun.attribute.ErrorCode;
-import de.javawi.jstun.attribute.MappedAddress;
-import de.javawi.jstun.attribute.MessageAttribute;
-import de.javawi.jstun.attribute.MessageAttributeException;
-import de.javawi.jstun.attribute.MessageAttributeParsingException;
-import de.javawi.jstun.header.MessageHeader;
-import de.javawi.jstun.header.MessageHeaderParsingException;
-import de.javawi.jstun.util.UtilityException;
+import plugins.JSTUN.de.javawi.jstun.attribute.ChangeRequest;
+import plugins.JSTUN.de.javawi.jstun.attribute.ChangedAddress;
+import plugins.JSTUN.de.javawi.jstun.attribute.ErrorCode;
+import plugins.JSTUN.de.javawi.jstun.attribute.MappedAddress;
+import plugins.JSTUN.de.javawi.jstun.attribute.MessageAttribute;
+import plugins.JSTUN.de.javawi.jstun.attribute.MessageAttributeException;
+import plugins.JSTUN.de.javawi.jstun.attribute.MessageAttributeParsingException;
+import plugins.JSTUN.de.javawi.jstun.header.MessageHeader;
+import plugins.JSTUN.de.javawi.jstun.header.MessageHeaderParsingException;
+import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
 public class DiscoveryTest {
 	private static Logger logger = Logger.getLogger("de.javawi.stun.test.DiscoveryTest");

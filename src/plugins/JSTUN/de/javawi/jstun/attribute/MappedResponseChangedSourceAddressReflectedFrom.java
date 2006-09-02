@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-package de.javawi.jstun.attribute;
+package plugins.JSTUN.de.javawi.jstun.attribute;
 
-import de.javawi.jstun.util.*;
+import plugins.JSTUN.de.javawi.jstun.util.*;
 
 public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttribute {
 	int port;
