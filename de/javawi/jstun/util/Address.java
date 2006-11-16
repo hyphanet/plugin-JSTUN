@@ -70,7 +70,7 @@ public class Address {
 	}
 	
 	public String toString() {
-		return new String(firstOctet + "." + secondOctet + "." + thirdOctet + "." + fourthOctet);
+		return new String(firstOctet + "." + secondOctet + '.' + thirdOctet + '.' + fourthOctet);
 	}
 	
 	public byte[] getBytes() throws UtilityException {

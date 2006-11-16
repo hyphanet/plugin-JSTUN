@@ -32,7 +32,7 @@ public class ResponseAddress extends MappedResponseChangedSourceAddressReflected
 	public static MessageAttribute parse(byte[] data) throws MessageAttributeParsingException {
 		ResponseAddress ra = new ResponseAddress();
 		MappedResponseChangedSourceAddressReflectedFrom.parse(ra, data);
-		logger.finer("Message Attribute: Response Address parsed: " + ra.toString() + ".");
+		logger.finer("Message Attribute: Response Address parsed: " + ra.toString() + '.');
 		return ra;
 	}
 }

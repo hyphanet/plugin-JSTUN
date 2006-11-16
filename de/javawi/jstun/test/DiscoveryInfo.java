@@ -129,12 +129,12 @@ public class DiscoveryInfo {
 		} catch (SocketException se) {
 			sb.append("unknown");
 		}
-		sb.append("\n");
+		sb.append('\n');
 		sb.append("Local IP address: ");
 		sb.append(testIP.getHostAddress());
-		sb.append("\n");
+		sb.append('\n');
 		if (error) {
-			sb.append(errorReason + " - Responsecode: " + errorResponseCode);
+            sb.append(errorReason).append(" - Responsecode: ").append(errorResponseCode);
 			return sb.toString();
 		}
 		sb.append("Result: ");
@@ -152,7 +152,7 @@ public class DiscoveryInfo {
 		} else {
 			sb.append("unknown");
 		}
-		sb.append("\n");
+		sb.append('\n');
 		return sb.toString();
 	}	
 }

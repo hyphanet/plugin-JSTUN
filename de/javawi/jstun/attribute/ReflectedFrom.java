@@ -32,7 +32,7 @@ public class ReflectedFrom extends MappedResponseChangedSourceAddressReflectedFr
 	public static ReflectedFrom parse(byte[] data) throws MessageAttributeParsingException {
 		ReflectedFrom result = new ReflectedFrom();
 		MappedResponseChangedSourceAddressReflectedFrom.parse(result, data);
-		logger.finer("Message Attribute: ReflectedFrom parsed: " + result.toString() + ".");
+		logger.finer("Message Attribute: ReflectedFrom parsed: " + result.toString() + '.');
 		return result;
 	}
 

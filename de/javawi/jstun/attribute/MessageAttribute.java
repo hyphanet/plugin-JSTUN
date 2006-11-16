@@ -108,7 +108,7 @@ public abstract class MessageAttribute implements MessageAttributeInterface {
 			case ERRORCODE: ma = ErrorCode.parse(valueArray); break;
 			case UNKNOWNATTRIBUTE: ma = UnknownAttribute.parse(valueArray); break;
 			case REFLECTEDFROM: ma = ReflectedFrom.parse(valueArray); break;
-			default: logger.config("MessageAttribute with type " + type + " unkown" + "."); ma = Dummy.parse(valueArray); break;
+			default: logger.config("MessageAttribute with type " + type + " unkown" + '.'); ma = Dummy.parse(valueArray); break;
 			}
 			return ma;
 		} catch (UtilityException ue) {
