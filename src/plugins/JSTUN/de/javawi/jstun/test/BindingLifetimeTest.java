@@ -64,7 +64,7 @@ public class BindingLifetimeTest {
 		}
 		BindingLifetimeTask task = new BindingLifetimeTask();
 		timer.schedule(task, binarySearchLifetime);
-		logger.finer("Timer scheduled initially: " + binarySearchLifetime + ".");
+		logger.finer("Timer scheduled initially: " + binarySearchLifetime + '.');
 	}
 	
 	private boolean BindingCommunicationInitialSocket() throws UtilityException, IOException, MessageHeaderParsingException, MessageAttributeParsingException {
@@ -158,25 +158,25 @@ public class BindingLifetimeTest {
 				}
 				logger.finer("Binding Response received.");
 				if (upperBinarySearchLifetime == (lowerBinarySearchLifetime + 1)) {
-					logger.config("BindingLifetimeTest completed. UDP binding lifetime: " + binarySearchLifetime + ".");
+					logger.config("BindingLifetimeTest completed. UDP binding lifetime: " + binarySearchLifetime + '.');
 					completed = true;
 					return;
 				}
 				lifetime = binarySearchLifetime;
-				logger.finer("Lifetime update: " + lifetime + ".");
+				logger.finer("Lifetime update: " + lifetime + '.');
 				lowerBinarySearchLifetime = binarySearchLifetime;
 				binarySearchLifetime = ( upperBinarySearchLifetime + lowerBinarySearchLifetime ) / 2;
 				if (binarySearchLifetime > 0) {
 					BindingLifetimeTask task = new BindingLifetimeTask();
 					timer.schedule(task, binarySearchLifetime);
-					logger.finer("Timer scheduled: " + binarySearchLifetime + ".");
+					logger.finer("Timer scheduled: " + binarySearchLifetime + '.');
 				} else {
 					completed = true;
 				}
 			} catch (SocketTimeoutException ste) {
 				logger.finest("Read operation at query socket timeout.");
 				if (upperBinarySearchLifetime == (lowerBinarySearchLifetime + 1)) {
-					logger.config("BindingLifetimeTest completed. UDP binding lifetime: " + binarySearchLifetime + ".");
+					logger.config("BindingLifetimeTest completed. UDP binding lifetime: " + binarySearchLifetime + '.');
 					completed = true;
 					return;
 				}
@@ -188,7 +188,7 @@ public class BindingLifetimeTest {
 					}
 					BindingLifetimeTask task = new BindingLifetimeTask();
 					timer.schedule(task, binarySearchLifetime);
-					logger.finer("Timer scheduled: " + binarySearchLifetime + ".");
+					logger.finer("Timer scheduled: " + binarySearchLifetime + '.');
 				} else {
 					completed = true;
 				}
