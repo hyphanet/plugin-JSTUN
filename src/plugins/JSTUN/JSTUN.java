@@ -154,6 +154,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			DetectedIP ip;
 			try {
 				ip = runTest(startAddress);
+				ip.mtu = NetworkInterface.getByInetAddress(startAddress).getMTU();
 			} catch (Throwable t) {
 				ip = null;
 				System.err.println("Caught "+t);
