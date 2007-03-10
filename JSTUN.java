@@ -38,7 +38,8 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		Random r = new Random(); // FIXME use something safer?
 		Vector v = new Vector(publicSTUNServers.length);
 		Vector out = new Vector();
-		int count = 0;
+		int countLikely = 0;
+		int countUnlikely = 0;
 		for(int i=0;i<publicSTUNServers.length;i++)
 			v.add(publicSTUNServers[i]);
 		while(!v.isEmpty()) {
@@ -58,10 +59,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				DetectedIP ip = convert(info);
 				out.add(ip);
 				if(ip.natType == ip.NO_UDP || ip.natType == ip.NOT_SUPPORTED || ip.natType == ip.SYMMETRIC_NAT || ip.natType == ip.SYMMETRIC_NAT || ip.natType == ip.SYMMETRIC_UDP_FIREWALL)
-					count++; // unlikely outcomes
+					countUnlikely++; // unlikely outcomes
 				else
-					count += 2;
-				if(count >= 4 || v.isEmpty()) return (DetectedIP[])out.toArray(new DetectedIP[out.size()]);
+					countLikely++;
+				if(countUnlikely >= 3 || countLikely >= 2 || v.isEmpty()) return (DetectedIP[])out.toArray(new DetectedIP[out.size()]);
 			} catch (BindException be) {
 				System.err.println(iaddress.toString() + ": " + be.getMessage());
 			} catch (UnknownHostException e) {
