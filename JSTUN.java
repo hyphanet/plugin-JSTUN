@@ -15,13 +15,18 @@ import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
 import freenet.crypt.RandomSource;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;
+import freenet.pluginmanager.FredPluginHTTP;
 import freenet.pluginmanager.FredPluginIPDetector;
 import freenet.pluginmanager.FredPluginThreadless;
+import freenet.pluginmanager.PluginHTTPException;
 import freenet.pluginmanager.PluginRespirator;
+import freenet.support.HTMLNode;
+import freenet.support.Logger;
+import freenet.support.api.HTTPRequest;
 
 // threadless in the sense that it doesn't need a thread running all the time.
 // but getAddress() can and will block!
-public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless {
+public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless, FredPluginHTTP {
 
 	// From http://www.voip-info.org/wiki-STUN
 	String[] publicSTUNServers = new String[] {
@@ -34,7 +39,12 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			"stun.xten.com"
 	};
 	
+	private DiscoveryInfo reportedData;
+	private PluginRespirator pr;
+	private boolean hasRunTestBeenCalled = false;
+	
 	DetectedIP[] runTest(InetAddress iaddress) {
+		this.hasRunTestBeenCalled = true;
 		Random r = new Random(); // FIXME use something safer?
 		Vector v = new Vector(publicSTUNServers.length);
 		Vector out = new Vector();
@@ -54,11 +64,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 					System.err.println("Server unreachable?: "+stunServer);
 					continue;
 				}
-				System.out.println("Successful STUN discovery from "+stunServer+"!:");
-				System.out.println(info);
+				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + info);
 				DetectedIP ip = convert(info);
 				out.add(ip);
-				if(ip.natType == ip.NO_UDP || ip.natType == ip.NOT_SUPPORTED || ip.natType == ip.SYMMETRIC_NAT || ip.natType == ip.SYMMETRIC_NAT || ip.natType == ip.SYMMETRIC_UDP_FIREWALL)
+				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
 					countUnlikely++; // unlikely outcomes
 				else
 					countLikely++;
@@ -184,7 +193,51 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	}
 
 	public void runPlugin(PluginRespirator pr) {
-		return;
+		this.pr = pr;
 	}
 
+	public String handleHTTPGet(HTTPRequest request) throws PluginHTTPException {
+		HTMLNode pageNode = pr.getPageMaker().getPageNode("JSTUN plugin", false, null);
+		HTMLNode contentNode = pr.getPageMaker().getContentNode(pageNode);
+
+		if(reportedData == null) {
+			if(hasRunTestBeenCalled) {
+				HTMLNode jSTUNReportInfobox = contentNode.addChild("div", "class", "infobox infobox-warning");
+				HTMLNode jSTUNReportInfoboxHeader = jSTUNReportInfobox.addChild("div", "class", "infobox-header");
+				HTMLNode jSTUNReportInfoboxContent = jSTUNReportInfobox.addChild("div", "class", "infobox-content");
+
+				jSTUNReportInfoboxHeader.addChild("#", "JSTUN detection report");
+
+				jSTUNReportInfoboxContent.addChild("#", "The plugin hasn't managed to contact any server yet.");
+			} else {
+				HTMLNode jSTUNReportInfobox = contentNode.addChild("div", "class", "infobox infobox-normal");
+				HTMLNode jSTUNReportInfoboxHeader = jSTUNReportInfobox.addChild("div", "class", "infobox-header");
+				HTMLNode jSTUNReportInfoboxContent = jSTUNReportInfobox.addChild("div", "class", "infobox-content");
+
+				jSTUNReportInfoboxHeader.addChild("#", "JSTUN detection report");
+
+				jSTUNReportInfoboxContent.addChild("#", "There is no need for the plugin to determine your ip address: the node knows it.");
+			}
+		} else {
+			HTMLNode jSTUNReportErrorInfobox = contentNode.addChild("div", "class", "infobox infobox-normal");
+			HTMLNode jSTUNReportInfoboxHeader = jSTUNReportErrorInfobox.addChild("div", "class", "infobox-header");
+			HTMLNode jSTUNReportInfoboxContent = jSTUNReportErrorInfobox.addChild("div", "class", "infobox-content");
+
+			jSTUNReportInfoboxHeader.addChild("#", "JSTUN detection report");
+
+			jSTUNReportInfoboxContent.addChild("#", "The plugin has reported the following data to the node:");
+			HTMLNode data = jSTUNReportInfoboxContent.addChild("div");
+			data.addChild("#", reportedData.toString());
+		}
+		return pageNode.generate();
+	}
+
+	public String handleHTTPPost(HTTPRequest request)
+			throws PluginHTTPException {
+		return null;
+	}
+
+	public String handleHTTPPut(HTTPRequest request) throws PluginHTTPException {
+		return null;
+	}
 }
