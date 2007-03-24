@@ -59,13 +59,13 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				// iphone-stun.freenet.de:3478
 				// larry.gloo.net:3478
 				// stun.xten.net:3478
-				DiscoveryInfo info = test.test();
-				if(((info.isBlockedUDP() || info.isSymmetricCone() || info.isSymmetricUDPFirewall()) && !v.isEmpty())) {
-					Logger.error(this, "Server unreachable?: "+stunServer)
+				reportedData = test.test();
+				if(((reportedData.isBlockedUDP() || reportedData.isSymmetricCone() || reportedData.isSymmetricUDPFirewall()) && !v.isEmpty())) {
+					Logger.error(this, "Server unreachable?: "+stunServer);
 					continue;
 				}
-				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + info);
-				DetectedIP ip = convert(info);
+				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData);
+				DetectedIP ip = convert(reportedData);
 				out.add(ip);
 				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
 					countUnlikely++; // unlikely outcomes
