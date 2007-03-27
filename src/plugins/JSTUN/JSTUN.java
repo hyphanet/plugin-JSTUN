@@ -67,7 +67,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData);
 				DetectedIP ip = convert(reportedData);
 				out.add(ip);
-				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
+				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
 					countUnlikely++; // unlikely outcomes
 				else
 					countLikely++;
