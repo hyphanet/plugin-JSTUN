@@ -249,7 +249,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			jSTUNReportInfoboxHeader.addChild("#", "JSTUN detection report");
 
 			jSTUNReportInfoboxContent.addChild("#", "The plugin has reported the following data to the node:");
-			HTMLNode data = jSTUNReportInfoboxContent.addChild("div");
+			HTMLNode data = jSTUNReportInfoboxContent.addChild("pre");
 			data.addChild("#", reportedData.toString());
 		}
 		return pageNode.generate();
