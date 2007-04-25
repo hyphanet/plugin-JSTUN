@@ -65,8 +65,8 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 					Logger.error(this, "Server unreachable?: "+stunServer);
 					continue;
 				}
-				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData);
-				System.err.println("Successful STUN discovery from "+stunServer+"!:" + reportedData);
+				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely);
+				System.err.println("Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely);
 				DetectedIP ip = convert(reportedData);
 				out.add(ip);
 				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
@@ -85,7 +85,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				e.printStackTrace();
 			}
 		}
-		return (DetectedIP[]) out.toArray(new DetectedIP[out.size()]);
+		return null;
 	}
 	
 	private DetectedIP convert(DiscoveryInfo info) {
