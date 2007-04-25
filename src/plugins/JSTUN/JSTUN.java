@@ -84,7 +84,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return (DetectedIP[]) out.toArray(new DetectedIP[out.size()]);
 	}
 	
 	private DetectedIP convert(DiscoveryInfo info) {
@@ -142,7 +142,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		synchronized(this) {
 			while(true) {
 				if(detectors.isEmpty()) {
-					if(detected.isEmpty()) return null;
+					if(detected.isEmpty()) {
+						System.err.println("STUN failed to detect IP addresses");
+						return null;
+					}
 					DetectedIP[] ips = (DetectedIP[]) detected.toArray(new DetectedIP[detected.size()]);
 					return ips;
 				}
