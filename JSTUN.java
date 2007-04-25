@@ -65,8 +65,8 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 					Logger.error(this, "Server unreachable?: "+stunServer);
 					continue;
 				}
-				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely);
-				System.err.println("Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely);
+				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely+" remaining "+v.size());
+				System.err.println("Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely+" reamining "+v.size());
 				DetectedIP ip = convert(reportedData);
 				out.add(ip);
 				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
