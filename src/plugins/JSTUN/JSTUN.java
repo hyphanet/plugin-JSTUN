@@ -185,6 +185,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 								Integer iMTU = (Integer) m.invoke(nif, null);
 								if(iMTU != null) {
 									mtu = iMTU.intValue();
+									System.err.println("Found interface MTU: "+nif+" : "+mtu);
 									break;
 								}
 							}
