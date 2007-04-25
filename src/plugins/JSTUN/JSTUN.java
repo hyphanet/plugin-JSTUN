@@ -172,7 +172,12 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			DetectedIP[] ip;
 			try {
 				ip = runTest(startAddress);
-				int mtu = NetworkInterface.getByInetAddress(startAddress).getMTU();
+				int mtu = -1;
+				try {
+					mtu = NetworkInterface.getByInetAddress(startAddress).getMTU();
+				} catch (Throwable t) {
+					// Ignore
+				}
 				for(int i=0;i<ip.length;i++) ip[i].mtu = mtu;
 			} catch (Throwable t) {
 				ip = null;
