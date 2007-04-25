@@ -204,8 +204,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			}
 			synchronized(JSTUN.this) {
 				detectors.remove(this);
-				if(ip != null)
-					detected.add(ip);
+				if(ip != null) {
+					for(int i=0;i<ip.length;i++)
+						detected.add(ip[i]);
+				}
 				JSTUN.this.notifyAll();
 			}
 		}
