@@ -68,6 +68,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				Logger.normal(this, "Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely+" remaining "+v.size());
 				System.err.println("Successful STUN discovery from "+stunServer+"!:" + reportedData+" likely detections: "+countLikely+" unlikely detections "+countUnlikely+" remaining "+v.size());
 				DetectedIP ip = convert(reportedData);
+				if(ip == null) {
+					Logger.normal(this, "Failed to parse reported data, skipping server "+stunServer);
+					continue;
+				}
 				out.add(ip);
 				if(ip.natType == DetectedIP.NO_UDP || ip.natType == DetectedIP.NOT_SUPPORTED || ip.natType == DetectedIP.SYMMETRIC_NAT || ip.natType == DetectedIP.SYMMETRIC_UDP_FIREWALL)
 					countUnlikely++; // unlikely outcomes
@@ -192,11 +196,11 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 						}
 					} catch (Throwable t) {
 						System.err.println("Trying to access 1.6 getMTU(), caught "+t);
-						t.printStackTrace();
 					}
 				}
-				//int mtu = .getMTU();
-				for(int i=0;i<ip.length;i++) ip[i].mtu = mtu;
+
+				for(int i=0; i<ip.length; i++)
+					ip[i].mtu = mtu;
 			} catch (Throwable t) {
 				ip = null;
 				System.err.println("Caught "+t);
