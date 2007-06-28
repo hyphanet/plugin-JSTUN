@@ -199,8 +199,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 					}
 				}
 
-				for(int i=0; i<ip.length; i++)
-					ip[i].mtu = mtu;
+				if(ip != null) {
+					for(int i=0; i<ip.length; i++)
+						ip[i].mtu = mtu;
+				}
 			} catch (Throwable t) {
 				ip = null;
 				System.err.println("Caught "+t);
