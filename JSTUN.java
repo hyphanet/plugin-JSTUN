@@ -89,6 +89,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 				e.printStackTrace();
 			}
 		}
+		System.err.println("STUN failed: likely detections="+countLikely+" unlikely detections="+countUnlikely);
 		return null;
 	}
 	
