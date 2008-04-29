@@ -184,7 +184,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			try {
 				ip = runTest(startAddress);
 				NetworkInterface nif = NetworkInterface.getByInetAddress(startAddress);
-				int mtu = Integer.MAX_VALUE;
+				int mtu = -1;
 				if(nif != null) {
 					try {
 						Class c = nif.getClass();
