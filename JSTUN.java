@@ -114,7 +114,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			return new DetectedIP(addr, DetectedIP.SYMMETRIC_NAT);
 		if(info.isSymmetricUDPFirewall())
 			return new DetectedIP(addr, DetectedIP.SYMMETRIC_UDP_FIREWALL);
-		return null;
+		return new DetectedIP(addr, DetectedIP.UNKNOWN);
 	}
 
 	public DetectedIP[] getAddress() {
