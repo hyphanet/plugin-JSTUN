@@ -13,12 +13,12 @@ import java.util.Random;
 
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryInfo;
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
-import freenet.crypt.RandomSource;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginHTTP;
 import freenet.pluginmanager.FredPluginIPDetector;
 import freenet.pluginmanager.FredPluginThreadless;
+import freenet.pluginmanager.FredPluginVersioned;
 import freenet.pluginmanager.PluginHTTPException;
 import freenet.pluginmanager.PluginRespirator;
 import freenet.support.HTMLNode;
@@ -27,7 +27,7 @@ import freenet.support.api.HTTPRequest;
 
 // threadless in the sense that it doesn't need a thread running all the time.
 // but getAddress() can and will block!
-public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless, FredPluginHTTP {
+public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless, FredPluginHTTP, FredPluginVersioned {
 
 	// From http://www.voip-info.org/wiki-STUN
 	String[] publicSTUNServers = new String[] {
@@ -272,5 +272,9 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 
 	public String handleHTTPPut(HTTPRequest request) throws PluginHTTPException {
 		return null;
+	}
+
+	public String getVersion() {
+		return "1.0";
 	}
 }
