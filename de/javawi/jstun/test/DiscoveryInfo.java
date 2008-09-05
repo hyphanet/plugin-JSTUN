@@ -122,7 +122,7 @@ public class DiscoveryInfo {
 	}
 	
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Network interface: ");
 		try {
 			sb.append(NetworkInterface.getByInetAddress(testIP).getName());
