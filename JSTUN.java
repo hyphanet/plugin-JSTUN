@@ -128,6 +128,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			return null;
 		}
 		while (ifaces.hasMoreElements()) {
+			if(WrapperManager.hasShutdownHookBeenTriggered()) return null;
 			NetworkInterface iface = ifaces.nextElement();
 			Enumeration<InetAddress> iaddresses = iface.getInetAddresses();
 			while (iaddresses.hasMoreElements()) {
