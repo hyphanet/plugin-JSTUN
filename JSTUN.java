@@ -14,7 +14,7 @@ import java.util.Random;
 import org.tanukisoftware.wrapper.WrapperManager;
 
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryInfo;
-import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
+import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest_;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginHTTP;
@@ -60,7 +60,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 			if(WrapperManager.hasShutdownHookBeenTriggered()) return null;
 			String stunServer = (String) v.remove(r.nextInt(v.size()));
 			try {
-				DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
+				DiscoveryTest_ test = new DiscoveryTest_(iaddress, stunServer, 3478);
 				// iphone-stun.freenet.de:3478
 				// larry.gloo.net:3478
 				// stun.xten.net:3478
