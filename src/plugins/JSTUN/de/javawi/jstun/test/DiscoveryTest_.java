@@ -41,7 +41,7 @@ import plugins.JSTUN.de.javawi.jstun.header.MessageHeader;
 import plugins.JSTUN.de.javawi.jstun.header.MessageHeaderParsingException;
 import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
-public class DiscoveryTest {
+public class DiscoveryTest_ {
 	private static Logger logger = Logger.getLogger("de.javawi.stun.test.DiscoveryTest");
 	InetAddress iaddress;
 	String stunServer;
@@ -53,7 +53,7 @@ public class DiscoveryTest {
 	DatagramSocket socketTest1 = null;
 	DiscoveryInfo di = null;
 	
-	public DiscoveryTest(InetAddress iaddress , String stunServer, int port) {
+	public DiscoveryTest_(InetAddress iaddress , String stunServer, int port) {
 		super();
 		this.iaddress = iaddress;
 		this.stunServer = stunServer;
