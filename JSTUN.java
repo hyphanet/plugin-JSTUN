@@ -55,6 +55,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		for(int i=0;i<publicSTUNServers.length;i++)
 			v.add(publicSTUNServers[i]);
 		while(!v.isEmpty()) {
+			if(WrapperManager.hasShutdownHookBeenTriggered()) return null;
 			String stunServer = (String) v.remove(r.nextInt(v.size()));
 			try {
 				DiscoveryTest test = new DiscoveryTest(iaddress, stunServer, 3478);
