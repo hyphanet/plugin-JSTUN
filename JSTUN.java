@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Vector;
 import java.util.Random;
 
+import org.tanukisoftware.wrapper.WrapperManager;
+
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryInfo;
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest;
 import freenet.pluginmanager.DetectedIP;
