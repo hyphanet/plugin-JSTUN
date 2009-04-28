@@ -3,7 +3,6 @@
 	<name>JSTUN</name>
 	<comment></comment>
 	<projects>
-		<project>Freenet 0.7</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
