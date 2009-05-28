@@ -15,6 +15,7 @@ import org.tanukisoftware.wrapper.WrapperManager;
 
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryInfo;
 import plugins.JSTUN.de.javawi.jstun.test.DiscoveryTest_;
+import freenet.clients.http.PageNode;
 import freenet.pluginmanager.DetectedIP;
 import freenet.pluginmanager.FredPlugin;
 import freenet.pluginmanager.FredPluginHTTP;
@@ -235,8 +236,9 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	}
 
 	public String handleHTTPGet(HTTPRequest request) throws PluginHTTPException {
-		HTMLNode pageNode = pr.getPageMaker().getPageNode("JSTUN plugin", false, null);
-		HTMLNode contentNode = pr.getPageMaker().getContentNode(pageNode);
+		PageNode page = pr.getPageMaker().getPageNode("JSTUN plugin", false, null);
+		HTMLNode pageNode = page.outer;
+		HTMLNode contentNode = page.content;
 
 		if(reportedData == null) {
 			if(hasRunTestBeenCalled) {
@@ -280,10 +282,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	}
 
 	public String getVersion() {
-		return "1.0";
+		return "1.1";
 	}
 
 	public long getRealVersion() {
-		return 1;
+		return 2;
 	}
 }
