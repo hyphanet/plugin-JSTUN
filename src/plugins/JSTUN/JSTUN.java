@@ -281,10 +281,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	}
 
 	public String getVersion() {
-		return "1.1";
+		return "1.2";
 	}
 
 	public long getRealVersion() {
-		return 2;
+		return 3;
 	}
 }
