@@ -33,15 +33,23 @@ import freenet.support.api.HTTPRequest;
 // but getAddress() can and will block!
 public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThreadless, FredPluginHTTP, FredPluginVersioned, FredPluginRealVersioned {
 
-	// From http://www.voip-info.org/wiki-STUN
+	// From http://code.google.com/p/natvpn/source/browse/trunk/stun_server_list
+	// TODO: Google STUN servers run on port 19302 instead of 3478. Is it worth supporting them?
 	String[] publicSTUNServers = new String[] {
 			"stun.voipbuster.com",
+			"stun.ekiga.net",
+			"stun.fwdnet.net",
 			"stun.ideasip.com",
 			"stun01.sipphone.com",
+			"stun.iptel.org",
+			"stun.rixtelecom.se",
+			"stun.schlund.de",
 			"stun.softjoys.com",
-			"stun.voipbuster.org",
+			"stun.voiparound.com",
+			"stun.voipstunt.com",
 			"stun.voxgratia.org",
-			"stun.xten.com"
+			"stun.xten.com",
+			"stunserver.org",
 	};
 	
 	private DiscoveryInfo reportedData;
@@ -281,10 +289,10 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	}
 
 	public String getVersion() {
-		return "1.2";
+		return "1.3";
 	}
 
 	public long getRealVersion() {
-		return 3;
+		return 4;
 	}
 }
