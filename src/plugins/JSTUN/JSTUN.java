@@ -38,9 +38,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	static String[] publicSTUNServers = new String[] {
 			"stun.voipbuster.com",
 			"stun.ekiga.net",
-			"stun.fwdnet.net",
 			"stun.ideasip.com",
-			"stun01.sipphone.com",
 			"stun.iptel.org",
 			"stun.rixtelecom.se",
 			"stun.schlund.de",
