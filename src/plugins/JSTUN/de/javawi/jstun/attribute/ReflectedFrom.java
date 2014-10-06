@@ -23,18 +23,18 @@ package plugins.JSTUN.de.javawi.jstun.attribute;
 import java.util.logging.Logger;
 
 public class ReflectedFrom extends MappedResponseChangedSourceAddressReflectedFrom {
-	private static Logger logger = Logger.getLogger("de.javawi.stun.attribute.ReflectedFrom");
-	
-	public ReflectedFrom() {
-		super(MessageAttribute.MessageAttributeType.ReflectedFrom);
-	}
-	
-	public static ReflectedFrom parse(byte[] data) throws MessageAttributeParsingException {
-		ReflectedFrom result = new ReflectedFrom();
-		MappedResponseChangedSourceAddressReflectedFrom.parse(result, data);
-		logger.finer("Message Attribute: ReflectedFrom parsed: " + result.toString() + '.');
-		return result;
-	}
+    private static Logger logger = Logger.getLogger("de.javawi.stun.attribute.ReflectedFrom");
+    
+    public ReflectedFrom() {
+        super(MessageAttribute.MessageAttributeType.ReflectedFrom);
+    }
+    
+    public static ReflectedFrom parse(byte[] data) throws MessageAttributeParsingException {
+        ReflectedFrom result = new ReflectedFrom();
+        MappedResponseChangedSourceAddressReflectedFrom.parse(result, data);
+        logger.finer("Message Attribute: ReflectedFrom parsed: " + result.toString() + '.');
+        return result;
+    }
 
-	
+    
 }

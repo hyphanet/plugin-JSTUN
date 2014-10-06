@@ -21,9 +21,9 @@
 package plugins.JSTUN.de.javawi.jstun.header;
 
 public class MessageHeaderParsingException extends MessageHeaderException {
-	private static final long serialVersionUID = 3544393617029607478L;
+    private static final long serialVersionUID = 3544393617029607478L;
 
-	public MessageHeaderParsingException(String mesg) {
-		super(mesg);
-	}
+    public MessageHeaderParsingException(String mesg) {
+        super(mesg);
+    }
 }

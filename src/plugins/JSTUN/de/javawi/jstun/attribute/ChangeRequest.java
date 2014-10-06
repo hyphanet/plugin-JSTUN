@@ -30,60 +30,60 @@ public class ChangeRequest extends MessageAttribute {
     * |0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A B 0|
     * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     */
-	boolean changeIP = false;
-	boolean changePort = false;
-	
-	public ChangeRequest() {
-		super(MessageAttribute.MessageAttributeType.ChangeRequest);
-	}
-	
-	public boolean isChangeIP() {
-		return changeIP;
-	}
-	
-	public boolean isChangePort() {
-		return changePort;
-	}
-	
-	public void setChangeIP() {
-		changeIP = true;
-	}
-	
-	public void setChangePort() {
-		changePort = true;
-	}
-	
-	public byte[] getBytes() throws UtilityException {
-		byte[] result = new byte[8];
-		// message attribute header
-		// type
-		System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
-		// length
-		System.arraycopy(Utility.IntegerToTwoBytes(4), 0, result, 2, 2);
-		
-		// change request header
-		if (changeIP) result[7] = Utility.IntegerToOneByte(4);
-		if (changePort) result[7] = Utility.IntegerToOneByte(2);
-		if (changeIP && changePort) result[7] = Utility.IntegerToOneByte(6);
-		return result;
-	}
-	
-	public static ChangeRequest parse(byte[] data) throws MessageAttributeParsingException {
-		try {
-			if (data.length < 4) {
-				throw new MessageAttributeParsingException("Data array too short");
-			}
-			ChangeRequest cr = new ChangeRequest();
-			int status = Utility.OneByteToInteger(data[3]);
-			switch (status) {
-			case 2: cr.setChangePort(); break;
-			case 4: cr.setChangeIP(); break;
-			case 6: cr.setChangeIP(); cr.setChangePort(); break;
-			default: throw new MessageAttributeParsingException("Status parsing error"); 
-			}
-			return cr;
-		} catch (UtilityException ue) {
-			throw new MessageAttributeParsingException("Parsing error");
-		}
-	}
+    boolean changeIP = false;
+    boolean changePort = false;
+    
+    public ChangeRequest() {
+        super(MessageAttribute.MessageAttributeType.ChangeRequest);
+    }
+    
+    public boolean isChangeIP() {
+        return changeIP;
+    }
+    
+    public boolean isChangePort() {
+        return changePort;
+    }
+    
+    public void setChangeIP() {
+        changeIP = true;
+    }
+    
+    public void setChangePort() {
+        changePort = true;
+    }
+    
+    public byte[] getBytes() throws UtilityException {
+        byte[] result = new byte[8];
+        // message attribute header
+        // type
+        System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
+        // length
+        System.arraycopy(Utility.IntegerToTwoBytes(4), 0, result, 2, 2);
+        
+        // change request header
+        if (changeIP) result[7] = Utility.IntegerToOneByte(4);
+        if (changePort) result[7] = Utility.IntegerToOneByte(2);
+        if (changeIP && changePort) result[7] = Utility.IntegerToOneByte(6);
+        return result;
+    }
+    
+    public static ChangeRequest parse(byte[] data) throws MessageAttributeParsingException {
+        try {
+            if (data.length < 4) {
+                throw new MessageAttributeParsingException("Data array too short");
+            }
+            ChangeRequest cr = new ChangeRequest();
+            int status = Utility.OneByteToInteger(data[3]);
+            switch (status) {
+            case 2: cr.setChangePort(); break;
+            case 4: cr.setChangeIP(); break;
+            case 6: cr.setChangeIP(); cr.setChangePort(); break;
+            default: throw new MessageAttributeParsingException("Status parsing error"); 
+            }
+            return cr;
+        } catch (UtilityException ue) {
+            throw new MessageAttributeParsingException("Parsing error");
+        }
+    }
 }
