@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -29,22 +29,22 @@ public abstract class MessageAttribute implements MessageAttributeInterface {
     private static Logger logger = Logger.getLogger("de.javawi.stun.util.MessageAttribute");
     MessageAttributeType type;
     int length;
-    
+
     public MessageAttribute() {
     }
-    
+
     public MessageAttribute(MessageAttributeType type) {
         setType(type);
     }
-    
+
     public void setType(MessageAttributeType type) {
         this.type = type;
     }
-    
+
     public MessageAttribute.MessageAttributeType getType() {
         return type;
     }
-    
+
     public static int typeToInteger(MessageAttributeType type) {
         if (type == MessageAttributeType.MappedAddress) return MAPPEDADDRESS;
         if (type == MessageAttributeType.ResponseAddress) return RESPONSEADDRESS;
@@ -60,7 +60,7 @@ public abstract class MessageAttribute implements MessageAttributeInterface {
         if (type == MessageAttributeType.Dummy) return DUMMY;
         return -1;
     }
-    
+
     public static MessageAttributeType intToType(long type) {
         if (type == MAPPEDADDRESS) return MessageAttributeType.MappedAddress;
         if (type == RESPONSEADDRESS) return MessageAttributeType.ResponseAddress;
@@ -76,17 +76,17 @@ public abstract class MessageAttribute implements MessageAttributeInterface {
         if (type == DUMMY ) return MessageAttributeType.Dummy;
         return MessageAttributeType.Dummy;
     }
-    
+
     abstract public byte[] getBytes() throws UtilityException;
     //abstract public MessageAttribute parse(byte[] data) throws MessageAttributeParsingException;
-    
+
     public int getLength() throws UtilityException {
         int length = getBytes().length;
         return length;
     }
-    
+
     public static MessageAttribute parseCommonHeader(byte[] data) throws MessageAttributeParsingException {
-        try {            
+        try {
             byte[] typeArray = new byte[2];
             System.arraycopy(data, 0, typeArray, 0, 2);
             int type = Utility.TwoBytesToInteger(typeArray);

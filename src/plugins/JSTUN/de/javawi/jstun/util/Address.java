@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@ public class Address {
     int secondOctet;
     int thirdOctet;
     int fourthOctet;
-    
+
     public Address(int firstOctet, int secondOctet, int thirdOctet, int fourthOctet) throws UtilityException {
         if ((firstOctet < 0) || (firstOctet > 255) || (secondOctet < 0) || (secondOctet > 255) || (thirdOctet < 0) || (thirdOctet > 255) || (fourthOctet < 0) || (fourthOctet > 255)) {
             throw new UtilityException("Address is malformed.");
@@ -38,7 +38,7 @@ public class Address {
         this.thirdOctet = thirdOctet;
         this.fourthOctet = fourthOctet;
     }
-    
+
     public Address(String address) throws UtilityException {
         StringTokenizer st = new StringTokenizer(address, ".");
         if (st.countTokens() != 4) {
@@ -58,7 +58,7 @@ public class Address {
             }
         }
     }
-    
+
     public Address(byte[] address) throws UtilityException {
         if (address.length < 4) {
             throw new UtilityException("4 bytes are required.");
@@ -68,11 +68,11 @@ public class Address {
         thirdOctet = Utility.OneByteToInteger(address[2]);
         fourthOctet = Utility.OneByteToInteger(address[3]);
     }
-    
+
     public String toString() {
         return new String(firstOctet + "." + secondOctet + '.' + thirdOctet + '.' + fourthOctet);
     }
-    
+
     public byte[] getBytes() throws UtilityException {
         byte[] result = new byte[4];
         result[0] = Utility.IntegerToOneByte(firstOctet);
@@ -81,7 +81,7 @@ public class Address {
         result[3] = Utility.IntegerToOneByte(fourthOctet);
         return result;
     }
-    
+
     public InetAddress getInetAddress() throws UtilityException, UnknownHostException {
         byte[] address = new byte[4];
         address[0] = Utility.IntegerToOneByte(firstOctet);
@@ -90,7 +90,7 @@ public class Address {
         address[3] = Utility.IntegerToOneByte(fourthOctet);
         return InetAddress.getByAddress(address);
     }
-    
+
     public boolean equals(Object obj) {
         try {
             byte[] data1 = this.getBytes();

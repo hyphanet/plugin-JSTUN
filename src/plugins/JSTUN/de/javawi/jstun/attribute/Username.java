@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -25,24 +25,24 @@ import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
 public class Username extends MessageAttribute {
     String username;
-    
+
     public Username() {
         super(MessageAttribute.MessageAttributeType.Username);
     }
-    
+
     public Username(String username) {
         super(MessageAttribute.MessageAttributeType.Username);
         setUsername(username);
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public byte[] getBytes() throws UtilityException {
         int length = username.length();
         // username header
@@ -57,13 +57,13 @@ public class Username extends MessageAttribute {
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
         // length
         System.arraycopy(Utility.IntegerToTwoBytes(length-4), 0, result, 2, 2);
-        
+
         // username header
         byte[] temp = username.getBytes();
         System.arraycopy(temp, 0, result, 4, temp.length);
         return result;
     }
-    
+
     public static Username parse(byte[] data) {
         Username result = new Username();
         String username = new String(data);

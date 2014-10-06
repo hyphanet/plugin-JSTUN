@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -52,21 +52,21 @@ public class DiscoveryTest_ {
     boolean nodeNatted = true;
     DatagramSocket socketTest1 = null;
     DiscoveryInfo di = null;
-    
+
     public DiscoveryTest_(InetAddress iaddress , String stunServer, int port) {
         super();
         this.iaddress = iaddress;
         this.stunServer = stunServer;
         this.port = port;
     }
-        
+
     public DiscoveryInfo test() throws UtilityException, SocketException, UnknownHostException, IOException, MessageAttributeParsingException, MessageAttributeException, MessageHeaderParsingException{
         ma = null;
         ca = null;
         nodeNatted = true;
         socketTest1 = null;
         di = new DiscoveryInfo(iaddress);
-        
+
         if (test1()) {
             if (test2()) {
                 if (test1Redo()) {
@@ -74,12 +74,12 @@ public class DiscoveryTest_ {
                 }
             }
         }
-        
+
         socketTest1.close();
-        
+
         return di;
     }
-    
+
     private boolean test1() throws UtilityException, SocketException, UnknownHostException, IOException, MessageAttributeParsingException, MessageHeaderParsingException {
         int timeSinceFirstTransmission = 0;
         int timeout = timeoutInitValue;
@@ -90,25 +90,25 @@ public class DiscoveryTest_ {
                 socketTest1.setReuseAddress(true);
                 socketTest1.connect(InetAddress.getByName(stunServer), port);
                 socketTest1.setSoTimeout(timeout);
-                
+
                 MessageHeader sendMH = new MessageHeader(MessageHeader.MessageHeaderType.BindingRequest);
                 sendMH.generateTransactionID();
-                
+
                 ChangeRequest changeRequest = new ChangeRequest();
                 sendMH.addMessageAttribute(changeRequest);
-                
+
                 byte[] data = sendMH.getBytes();
                 DatagramPacket send = new DatagramPacket(data, data.length);
                 socketTest1.send(send);
                 logger.finer("Test 1: Binding Request sent.");
-            
+
                 MessageHeader receiveMH = new MessageHeader();
                 while (!(receiveMH.equalTransactionID(sendMH))) {
                     DatagramPacket receive = new DatagramPacket(new byte[200], 200);
                     socketTest1.receive(receive);
                     receiveMH = MessageHeader.parseHeader(receive.getData());
                 }
-                
+
                 ma = (MappedAddress) receiveMH.getMessageAttribute(MessageAttribute.MessageAttributeType.MappedAddress);
                 ca = (ChangedAddress) receiveMH.getMessageAttribute(MessageAttribute.MessageAttributeType.ChangedAddress);
                 ErrorCode ec = (ErrorCode) receiveMH.getMessageAttribute(MessageAttribute.MessageAttributeType.ErrorCode);
@@ -145,10 +145,10 @@ public class DiscoveryTest_ {
                     logger.fine("Node is not capable of udp communication.");
                     return false;
                 }
-            } 
+            }
         }
     }
-        
+
     private boolean test2() throws UtilityException, SocketException, UnknownHostException, IOException, MessageAttributeParsingException, MessageAttributeException, MessageHeaderParsingException {
         int timeSinceFirstTransmission = 0;
         int timeout = timeoutInitValue;
@@ -158,29 +158,29 @@ public class DiscoveryTest_ {
                 DatagramSocket sendSocket = new DatagramSocket(new InetSocketAddress(iaddress, 0));
                 sendSocket.connect(InetAddress.getByName(stunServer), port);
                 sendSocket.setSoTimeout(timeout);
-                
+
                 MessageHeader sendMH = new MessageHeader(MessageHeader.MessageHeaderType.BindingRequest);
                 sendMH.generateTransactionID();
-                
+
                 ChangeRequest changeRequest = new ChangeRequest();
                 changeRequest.setChangeIP();
                 changeRequest.setChangePort();
                 sendMH.addMessageAttribute(changeRequest);
-                     
-                byte[] data = sendMH.getBytes(); 
+
+                byte[] data = sendMH.getBytes();
                 DatagramPacket send = new DatagramPacket(data, data.length);
                 sendSocket.send(send);
                 logger.finer("Test 2: Binding Request sent.");
-                
+
                 int localPort = sendSocket.getLocalPort();
                 InetAddress localAddress = sendSocket.getLocalAddress();
-                
+
                 sendSocket.close();
-                
+
                 DatagramSocket receiveSocket = new DatagramSocket(localPort, localAddress);
                 receiveSocket.connect(ca.getAddress().getInetAddress(), ca.getPort());
                 receiveSocket.setSoTimeout(timeout);
-                
+
                 MessageHeader receiveMH = new MessageHeader();
                 while(!(receiveMH.equalTransactionID(sendMH))) {
                     DatagramPacket receive = new DatagramPacket(new byte[200], 200);
@@ -223,7 +223,7 @@ public class DiscoveryTest_ {
             }
         }
     }
-    
+
     private boolean test1Redo() throws UtilityException, SocketException, UnknownHostException, IOException, MessageAttributeParsingException, MessageHeaderParsingException{
         int timeSinceFirstTransmission = 0;
         int timeout = timeoutInitValue;
@@ -233,18 +233,18 @@ public class DiscoveryTest_ {
                 // Test 1 with changed port and address values
                 socketTest1.connect(ca.getAddress().getInetAddress(), ca.getPort());
                 socketTest1.setSoTimeout(timeout);
-                
+
                 MessageHeader sendMH = new MessageHeader(MessageHeader.MessageHeaderType.BindingRequest);
                 sendMH.generateTransactionID();
-                
+
                 ChangeRequest changeRequest = new ChangeRequest();
                 sendMH.addMessageAttribute(changeRequest);
-                
+
                 byte[] data = sendMH.getBytes();
                 DatagramPacket send = new DatagramPacket(data, data.length);
                 socketTest1.send(send);
                 logger.finer("Test 1 redo with changed address: Binding Request sent.");
-                
+
                 MessageHeader receiveMH = new MessageHeader();
                 while (!(receiveMH.equalTransactionID(sendMH))) {
                     DatagramPacket receive = new DatagramPacket(new byte[200], 200);
@@ -285,7 +285,7 @@ public class DiscoveryTest_ {
             }
         }
     }
-    
+
     private void test3() throws UtilityException, SocketException, UnknownHostException, IOException, MessageAttributeParsingException, MessageAttributeException, MessageHeaderParsingException {
         int timeSinceFirstTransmission = 0;
         int timeout = timeoutInitValue;
@@ -295,28 +295,28 @@ public class DiscoveryTest_ {
                 DatagramSocket sendSocket = new DatagramSocket(new InetSocketAddress(iaddress, 0));
                 sendSocket.connect(InetAddress.getByName(stunServer), port);
                 sendSocket.setSoTimeout(timeout);
-                
+
                 MessageHeader sendMH = new MessageHeader(MessageHeader.MessageHeaderType.BindingRequest);
                 sendMH.generateTransactionID();
-                
+
                 ChangeRequest changeRequest = new ChangeRequest();
                 changeRequest.setChangePort();
                 sendMH.addMessageAttribute(changeRequest);
-                
+
                 byte[] data = sendMH.getBytes();
                 DatagramPacket send = new DatagramPacket(data, data.length);
                 sendSocket.send(send);
                 logger.finer("Test 3: Binding Request sent.");
-                
+
                 int localPort = sendSocket.getLocalPort();
                 InetAddress localAddress = sendSocket.getLocalAddress();
-                
+
                 sendSocket.close();
-                
+
                 DatagramSocket receiveSocket = new DatagramSocket(localPort, localAddress);
                 receiveSocket.connect(InetAddress.getByName(stunServer), ca.getPort());
                 receiveSocket.setSoTimeout(timeout);
-                
+
                 MessageHeader receiveMH = new MessageHeader();
                 while (!(receiveMH.equalTransactionID(sendMH))) {
                     DatagramPacket receive = new DatagramPacket(new byte[200], 200);

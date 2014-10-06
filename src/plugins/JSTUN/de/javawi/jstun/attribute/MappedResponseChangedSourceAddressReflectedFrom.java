@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -25,8 +25,8 @@ import plugins.JSTUN.de.javawi.jstun.util.*;
 public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttribute {
     int port;
     Address address;
-    
-    /*  
+
+    /*
      *  0                   1                   2                   3
      *  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -45,30 +45,30 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
             ue.printStackTrace();
         }
     }
-    
+
     public MappedResponseChangedSourceAddressReflectedFrom(MessageAttribute.MessageAttributeType type) {
         super(type);
     }
-    
+
     public int getPort() {
         return port;
     }
-    
+
     public Address getAddress() {
         return address;
     }
-    
+
     public void setPort(int port) throws MessageAttributeException {
         if ((port > 65536) || (port < 0)) {
             throw new MessageAttributeException("Port value " + port + " out of range.");
         }
         this.port = port;
     }
-    
+
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     public byte[] getBytes() throws UtilityException {
         byte[] result = new byte[12];
         // message attribute header
@@ -76,17 +76,17 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
         // length
         System.arraycopy(Utility.IntegerToTwoBytes(8), 0, result, 2, 2);
-        
+
         // mappedaddress header
         // family
-        result[5] = Utility.IntegerToOneByte(0x01); 
+        result[5] = Utility.IntegerToOneByte(0x01);
         // port
         System.arraycopy(Utility.IntegerToTwoBytes(port), 0, result, 6, 2);
         // address
         System.arraycopy(address.getBytes(), 0, result, 8, 4);
         return result;
     }
-    
+
     protected static MappedResponseChangedSourceAddressReflectedFrom parse(MappedResponseChangedSourceAddressReflectedFrom ma, byte[] data) throws MessageAttributeParsingException {
         try {
             if (data.length < 8) {
@@ -109,7 +109,7 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
             throw new MessageAttributeParsingException("Port parsing error");
         }
     }
-    
+
     public String toString() {
         return "Address " +address.toString() + ", Port " + port;
     }

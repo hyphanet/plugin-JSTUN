@@ -49,11 +49,11 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
             "stun.xten.com",
             "stunserver.org",
     };
-    
+
     private DiscoveryInfo reportedData;
     private PluginRespirator pr;
     private boolean hasRunTestBeenCalled = false;
-    
+
     DetectedIP[] runTest(InetAddress iaddress) {
         this.hasRunTestBeenCalled = true;
         Random r = new Random(); // FIXME use something safer?
@@ -199,17 +199,17 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 
     private final HashSet detected = new HashSet();
     private final HashSet detectors = new HashSet();
-    
+
     class DetectorThread extends Thread {
-        
+
         DetectorThread(InetAddress addr) {
             this.startAddress = addr;
             this.setDaemon(true);
             this.setName("STUN IP detector for "+addr);
         }
-        
+
         final InetAddress startAddress;
-        
+
         public void run() {
             DetectedIP[] ip;
             try {
@@ -251,7 +251,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
             }
         }
     }
-    
+
     public void terminate() {
         return;
     }

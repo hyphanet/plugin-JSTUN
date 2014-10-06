@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@ public class Dummy extends MessageAttribute {
     public Dummy() {
         super(MessageAttributeType.Dummy);
     }
-    
+
     public void setLengthValue(int length) {
         this.lengthValue = length;
     }
@@ -42,7 +42,7 @@ public class Dummy extends MessageAttribute {
         System.arraycopy(Utility.IntegerToTwoBytes(lengthValue), 0, result, 2, 2);
         return result;
     }
-    
+
     public static Dummy parse(byte[] data) {
         Dummy dummy = new Dummy();
         dummy.setLengthValue(data.length);

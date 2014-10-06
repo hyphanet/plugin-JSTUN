@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -35,21 +35,21 @@ public class DiscoveryInfo {
     private boolean symmetricCone = false;
     private boolean symmetricUDPFirewall = false;
     private InetAddress publicIP;
-    
+
     public DiscoveryInfo(InetAddress testIP) {
         this.testIP = testIP;
     }
-    
+
     public boolean isError() {
         return error;
     }
-    
+
     public void setError(int responseCode, String reason) {
         this.error = true;
         this.errorResponseCode = responseCode;
         this.errorReason = reason;
     }
-    
+
     public boolean isOpenAccess() {
         if (error) return false;
         return openAccess;
@@ -67,7 +67,7 @@ public class DiscoveryInfo {
     public void setBlockedUDP() {
         this.blockedUDP = true;
     }
-    
+
     public boolean isFullCone() {
         if (error) return false;
         return fullCone;
@@ -112,15 +112,15 @@ public class DiscoveryInfo {
     public void setSymmetricUDPFirewall() {
         this.symmetricUDPFirewall = true;
     }
-    
+
     public InetAddress getPublicIP() {
         return publicIP;
     }
-    
+
     public void setPublicIP(InetAddress publicIP) {
         this.publicIP = publicIP;
     }
-    
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Network interface: ");
@@ -154,5 +154,5 @@ public class DiscoveryInfo {
         }
         sb.append('\n');
         return sb.toString();
-    }    
+    }
 }

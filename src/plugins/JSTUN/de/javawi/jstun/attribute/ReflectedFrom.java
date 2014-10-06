@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -24,11 +24,11 @@ import java.util.logging.Logger;
 
 public class ReflectedFrom extends MappedResponseChangedSourceAddressReflectedFrom {
     private static Logger logger = Logger.getLogger("de.javawi.stun.attribute.ReflectedFrom");
-    
+
     public ReflectedFrom() {
         super(MessageAttribute.MessageAttributeType.ReflectedFrom);
     }
-    
+
     public static ReflectedFrom parse(byte[] data) throws MessageAttributeParsingException {
         ReflectedFrom result = new ReflectedFrom();
         MappedResponseChangedSourceAddressReflectedFrom.parse(result, data);
@@ -36,5 +36,5 @@ public class ReflectedFrom extends MappedResponseChangedSourceAddressReflectedFr
         return result;
     }
 
-    
+
 }

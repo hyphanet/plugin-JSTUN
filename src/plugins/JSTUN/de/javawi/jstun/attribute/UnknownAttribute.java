@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@ import plugins.JSTUN.de.javawi.jstun.util.Utility;
 import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
 public class UnknownAttribute extends MessageAttribute {
-    /* 
+    /*
      *  0                   1                   2                   3
      *  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -35,17 +35,17 @@ public class UnknownAttribute extends MessageAttribute {
      * |      Attribute 3 Type           |     Attribute 4 Type    ...
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      */
-    
+
     Vector<MessageAttributeType> unkown = new Vector<MessageAttributeType>();
-    
+
     public UnknownAttribute() {
         super(MessageAttribute.MessageAttributeType.UnknownAttribute);
     }
-    
+
     public void addAttribute(MessageAttributeType attribute) {
         unkown.add(attribute);
     }
-    
+
     public byte[] getBytes() throws UtilityException {
         int length = 0;
         if (unkown.size()%2 == 1) {
@@ -59,7 +59,7 @@ public class UnknownAttribute extends MessageAttribute {
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
         // length
         System.arraycopy(Utility.IntegerToTwoBytes(length - 4), 0, result, 2, 2);
-        
+
         // unkown attribute header
         Iterator<MessageAttributeType> it = unkown.iterator();
         while(it.hasNext()) {

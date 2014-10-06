@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@ public class ResponseAddress extends MappedResponseChangedSourceAddressReflected
     public ResponseAddress() {
         super(MessageAttribute.MessageAttributeType.ResponseAddress);
     }
-    
+
     public static MessageAttribute parse(byte[] data) throws MessageAttributeParsingException {
         ResponseAddress ra = new ResponseAddress();
         MappedResponseChangedSourceAddressReflectedFrom.parse(ra, data);
