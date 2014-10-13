@@ -1,6 +1,6 @@
 /*
- * This file is part of JSTUN. 
- * 
+ * This file is part of JSTUN.
+ *
  * Copyright (c) 2005 Thomas King <king@t-king.de>
  *
  * JSTUN is free software; you can redistribute it and/or modify
@@ -18,12 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
-public class MessageAttributeParsingException extends MessageAttributeException { 
-	private static final long serialVersionUID = 3258409534426263605L;
+public class MessageAttributeParsingException extends MessageAttributeException {
+    private static final long serialVersionUID = 3258409534426263605L;
 
-	public MessageAttributeParsingException(String mesg) {
-		super(mesg);
-	}
+    public MessageAttributeParsingException(String mesg) {
+        super(mesg);
+    }
 }
