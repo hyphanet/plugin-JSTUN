@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.util;
 
 public class UtilityException extends Exception {
@@ -26,5 +27,4 @@ public class UtilityException extends Exception {
     UtilityException(String mesg) {
         super(mesg);
     }
-
 }

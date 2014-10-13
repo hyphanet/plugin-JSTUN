@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 import plugins.JSTUN.de.javawi.jstun.util.Utility;
@@ -25,6 +26,7 @@ import plugins.JSTUN.de.javawi.jstun.util.UtilityException;
 
 public class Dummy extends MessageAttribute {
     int lengthValue;
+
     public Dummy() {
         super(MessageAttributeType.Dummy);
     }
@@ -35,17 +37,22 @@ public class Dummy extends MessageAttribute {
 
     public byte[] getBytes() throws UtilityException {
         byte[] result = new byte[lengthValue + 4];
-        //    message attribute header
+
+        // message attribute header
         // type
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
+
         // length
         System.arraycopy(Utility.IntegerToTwoBytes(lengthValue), 0, result, 2, 2);
+
         return result;
     }
 
     public static Dummy parse(byte[] data) {
         Dummy dummy = new Dummy();
+
         dummy.setLengthValue(data.length);
+
         return dummy;
     }
 }

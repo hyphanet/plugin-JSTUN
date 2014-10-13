@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 import java.util.logging.Logger;
@@ -31,10 +32,10 @@ public class ReflectedFrom extends MappedResponseChangedSourceAddressReflectedFr
 
     public static ReflectedFrom parse(byte[] data) throws MessageAttributeParsingException {
         ReflectedFrom result = new ReflectedFrom();
+
         MappedResponseChangedSourceAddressReflectedFrom.parse(result, data);
         logger.finer("Message Attribute: ReflectedFrom parsed: " + result.toString() + '.');
+
         return result;
     }
-
-
 }

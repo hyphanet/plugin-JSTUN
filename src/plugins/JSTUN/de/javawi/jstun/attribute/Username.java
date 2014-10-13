@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 import plugins.JSTUN.de.javawi.jstun.util.Utility;
@@ -45,29 +46,38 @@ public class Username extends MessageAttribute {
 
     public byte[] getBytes() throws UtilityException {
         int length = username.length();
+
         // username header
         if ((length % 4) != 0) {
             length += 4 - (length % 4);
         }
+
         // message attribute header
         length += 4;
+
         byte[] result = new byte[length];
+
         // message attribute header
         // type
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
+
         // length
-        System.arraycopy(Utility.IntegerToTwoBytes(length-4), 0, result, 2, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes(length - 4), 0, result, 2, 2);
 
         // username header
         byte[] temp = username.getBytes();
+
         System.arraycopy(temp, 0, result, 4, temp.length);
+
         return result;
     }
 
     public static Username parse(byte[] data) {
-        Username result = new Username();
-        String username = new String(data);
+        Username result   = new Username();
+        String   username = new String(data);
+
         result.setUsername(username);
+
         return result;
     }
 }

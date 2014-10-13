@@ -18,20 +18,26 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 public interface MessageAttributeInterface {
-    public enum MessageAttributeType { Dummy, MappedAddress, ResponseAddress, ChangeRequest, SourceAddress, ChangedAddress, Username, Password, MessageIntegrity, ErrorCode, UnknownAttribute, ReflectedFrom };
-    final static int DUMMY = 0x0000;
-    final static int MAPPEDADDRESS = 0x0001;
-    final static int RESPONSEADDRESS = 0x0002;
-    final static int CHANGEREQUEST = 0x0003;
-    final static int SOURCEADDRESS = 0x0004;
-    final static int CHANGEDADDRESS = 0x0005;
-    final static int USERNAME = 0x0006;
-    final static int PASSWORD = 0x0007;
+    public enum MessageAttributeType {
+        Dummy, MappedAddress, ResponseAddress, ChangeRequest, SourceAddress, ChangedAddress,
+        Username, Password, MessageIntegrity, ErrorCode, UnknownAttribute, ReflectedFrom
+    }
+
+    ;
+    final static int DUMMY            = 0x0000;
+    final static int MAPPEDADDRESS    = 0x0001;
+    final static int RESPONSEADDRESS  = 0x0002;
+    final static int CHANGEREQUEST    = 0x0003;
+    final static int SOURCEADDRESS    = 0x0004;
+    final static int CHANGEDADDRESS   = 0x0005;
+    final static int USERNAME         = 0x0006;
+    final static int PASSWORD         = 0x0007;
     final static int MESSAGEINTEGRITY = 0x0008;
-    final static int ERRORCODE = 0x0009;
+    final static int ERRORCODE        = 0x0009;
     final static int UNKNOWNATTRIBUTE = 0x000a;
-    final static int REFLECTEDFROM = 0x000b;
+    final static int REFLECTEDFROM    = 0x000b;
 }

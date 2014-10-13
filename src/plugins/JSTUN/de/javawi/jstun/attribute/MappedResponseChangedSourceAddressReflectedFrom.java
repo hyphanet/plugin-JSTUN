@@ -18,12 +18,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 import plugins.JSTUN.de.javawi.jstun.util.*;
 
 public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttribute {
-    int port;
+    int     port;
     Address address;
 
     /*
@@ -37,8 +38,9 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
      */
     public MappedResponseChangedSourceAddressReflectedFrom() {
         super();
+
         try {
-            port = 0;
+            port    = 0;
             address = new Address("0.0.0.0");
         } catch (UtilityException ue) {
             ue.getMessage();
@@ -46,7 +48,8 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
         }
     }
 
-    public MappedResponseChangedSourceAddressReflectedFrom(MessageAttribute.MessageAttributeType type) {
+    public MappedResponseChangedSourceAddressReflectedFrom(
+            MessageAttribute.MessageAttributeType type) {
         super(type);
     }
 
@@ -62,6 +65,7 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
         if ((port > 65536) || (port < 0)) {
             throw new MessageAttributeException("Port value " + port + " out of range.");
         }
+
         this.port = port;
     }
 
@@ -71,37 +75,54 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
 
     public byte[] getBytes() throws UtilityException {
         byte[] result = new byte[12];
+
         // message attribute header
         // type
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
+
         // length
         System.arraycopy(Utility.IntegerToTwoBytes(8), 0, result, 2, 2);
 
         // mappedaddress header
         // family
         result[5] = Utility.IntegerToOneByte(0x01);
+
         // port
         System.arraycopy(Utility.IntegerToTwoBytes(port), 0, result, 6, 2);
+
         // address
         System.arraycopy(address.getBytes(), 0, result, 8, 4);
+
         return result;
     }
 
-    protected static MappedResponseChangedSourceAddressReflectedFrom parse(MappedResponseChangedSourceAddressReflectedFrom ma, byte[] data) throws MessageAttributeParsingException {
+    protected static MappedResponseChangedSourceAddressReflectedFrom parse(
+            MappedResponseChangedSourceAddressReflectedFrom ma, byte[] data)
+            throws MessageAttributeParsingException {
         try {
             if (data.length < 8) {
                 throw new MessageAttributeParsingException("Data array too short");
             }
+
             int family = Utility.OneByteToInteger(data[1]);
-            if (family != 0x01) throw new MessageAttributeParsingException("Family " + family + " is not supported");
+
+            if (family != 0x01) {
+                throw new MessageAttributeParsingException("Family " + family
+                        + " is not supported");
+            }
+
             byte[] portArray = new byte[2];
+
             System.arraycopy(data, 2, portArray, 0, 2);
             ma.setPort(Utility.TwoBytesToInteger(portArray));
-            int firstOctet = Utility.OneByteToInteger(data[4]);
+
+            int firstOctet  = Utility.OneByteToInteger(data[4]);
             int secondOctet = Utility.OneByteToInteger(data[5]);
-            int thirdOctet = Utility.OneByteToInteger(data[6]);
+            int thirdOctet  = Utility.OneByteToInteger(data[6]);
             int fourthOctet = Utility.OneByteToInteger(data[7]);
+
             ma.setAddress(new Address(firstOctet, secondOctet, thirdOctet, fourthOctet));
+
             return ma;
         } catch (UtilityException ue) {
             throw new MessageAttributeParsingException("Parsing error");
@@ -111,6 +132,6 @@ public class MappedResponseChangedSourceAddressReflectedFrom extends MessageAttr
     }
 
     public String toString() {
-        return "Address " +address.toString() + ", Port " + port;
+        return "Address " + address.toString() + ", Port " + port;
     }
 }

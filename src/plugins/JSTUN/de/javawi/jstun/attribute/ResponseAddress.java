@@ -18,21 +18,24 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.attribute;
 
 import java.util.logging.Logger;
 
-
 public class ResponseAddress extends MappedResponseChangedSourceAddressReflectedFrom {
     private static Logger logger = Logger.getLogger("de.javawi.stun.attribute.ResponseAddress");
+
     public ResponseAddress() {
         super(MessageAttribute.MessageAttributeType.ResponseAddress);
     }
 
     public static MessageAttribute parse(byte[] data) throws MessageAttributeParsingException {
         ResponseAddress ra = new ResponseAddress();
+
         MappedResponseChangedSourceAddressReflectedFrom.parse(ra, data);
         logger.finer("Message Attribute: Response Address parsed: " + ra.toString() + '.');
+
         return ra;
     }
 }

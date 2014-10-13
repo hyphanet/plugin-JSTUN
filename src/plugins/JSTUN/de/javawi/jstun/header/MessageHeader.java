@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
 package plugins.JSTUN.de.javawi.jstun.header;
 
 import plugins.JSTUN.de.javawi.jstun.attribute.*;
@@ -27,6 +28,7 @@ import java.util.*;
 import java.util.logging.*;
 
 public class MessageHeader implements MessageHeaderInterface {
+
     /*
      *  0                   1                   2                   3
      *  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -42,11 +44,12 @@ public class MessageHeader implements MessageHeaderInterface {
      *                                                                 |
      * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      */
-    private static Logger logger = Logger.getLogger("de.javawi.stun.header.MessageHeader");
-    MessageHeaderType type;
-    byte[] id = new byte[16];
-
-    TreeMap<MessageAttribute.MessageAttributeType, MessageAttribute> ma = new TreeMap<MessageAttribute.MessageAttributeType, MessageAttribute>();
+    private static Logger                                            logger =
+        Logger.getLogger("de.javawi.stun.header.MessageHeader");
+    MessageHeaderType                                                type;
+    byte[]                                                           id = new byte[16];
+    TreeMap<MessageAttribute.MessageAttributeType, MessageAttribute> ma =
+        new TreeMap<MessageAttribute.MessageAttributeType, MessageAttribute>();
 
     public MessageHeader() {
         super();
@@ -62,12 +65,30 @@ public class MessageHeader implements MessageHeaderInterface {
     }
 
     public static int typeToInteger(MessageHeaderType type) {
-        if (type == MessageHeaderType.BindingRequest) return BINDINGREQUEST;
-        if (type == MessageHeaderType.BindingResponse) return BINDINGRESPONSE;
-        if (type == MessageHeaderType.BindingErrorResponse) return BINDINGERRORRESPONSE;
-        if (type == MessageHeaderType.SharedSecretRequest) return SHAREDSECRETREQUEST;
-        if (type == MessageHeaderType.SharedSecretResponse) return SHAREDSECRETRESPONSE;
-        if (type == MessageHeaderType.SharedSecretErrorResponse) return SHAREDSECRETERRORRESPONSE;
+        if (type == MessageHeaderType.BindingRequest) {
+            return BINDINGREQUEST;
+        }
+
+        if (type == MessageHeaderType.BindingResponse) {
+            return BINDINGRESPONSE;
+        }
+
+        if (type == MessageHeaderType.BindingErrorResponse) {
+            return BINDINGERRORRESPONSE;
+        }
+
+        if (type == MessageHeaderType.SharedSecretRequest) {
+            return SHAREDSECRETREQUEST;
+        }
+
+        if (type == MessageHeaderType.SharedSecretResponse) {
+            return SHAREDSECRETRESPONSE;
+        }
+
+        if (type == MessageHeaderType.SharedSecretErrorResponse) {
+            return SHAREDSECRETERRORRESPONSE;
+        }
+
         return -1;
     }
 
@@ -76,14 +97,14 @@ public class MessageHeader implements MessageHeaderInterface {
     }
 
     public void generateTransactionID() throws UtilityException {
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 0, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 2, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 4, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 6, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 8, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 10, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 12, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes((int)(Math.random() * 65536)), 0, id, 14, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 0, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 2, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 4, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 6, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 8, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 10, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 12, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes((int) (Math.random() * 65536)), 0, id, 14, 2);
     }
 
     public byte[] getTransactionID() {
@@ -92,11 +113,17 @@ public class MessageHeader implements MessageHeaderInterface {
 
     public boolean equalTransactionID(MessageHeader header) {
         byte[] idHeader = header.getTransactionID();
-        if (idHeader.length != 16) return false;
-        if ((idHeader[0] == id[0]) && (idHeader[1] == id[1]) && (idHeader[2] == id[2]) && (idHeader[3] == id[3]) &&
-            (idHeader[4] == id[4]) && (idHeader[5] == id[5]) && (idHeader[6] == id[6]) && (idHeader[7] == id[7]) &&
-            (idHeader[8] == id[8]) && (idHeader[9] == id[9]) && (idHeader[10] == id[10]) && (idHeader[11] == id[11]) &&
-            (idHeader[12] == id[12]) && (idHeader[13] == id[13]) && (idHeader[14] == id[14]) && (idHeader[15] == id[15])) {
+
+        if (idHeader.length != 16) {
+            return false;
+        }
+
+        if ((idHeader[0] == id[0]) && (idHeader[1] == id[1]) && (idHeader[2] == id[2])
+                && (idHeader[3] == id[3]) && (idHeader[4] == id[4]) && (idHeader[5] == id[5])
+                && (idHeader[6] == id[6]) && (idHeader[7] == id[7]) && (idHeader[8] == id[8])
+                && (idHeader[9] == id[9]) && (idHeader[10] == id[10]) && (idHeader[11] == id[11])
+                && (idHeader[12] == id[12]) && (idHeader[13] == id[13]) && (idHeader[14] == id[14])
+                && (idHeader[15] == id[15])) {
             return true;
         } else {
             return false;
@@ -112,26 +139,34 @@ public class MessageHeader implements MessageHeaderInterface {
     }
 
     public byte[] getBytes() throws UtilityException {
-        int length = 20;
-        Iterator<MessageAttribute.MessageAttributeType> it = ma.keySet().iterator();
+        int                                             length = 20;
+        Iterator<MessageAttribute.MessageAttributeType> it     = ma.keySet().iterator();
+
         while (it.hasNext()) {
             MessageAttribute attri = ma.get(it.next());
+
             length += attri.getLength();
         }
+
         // add attribute size + attributes.getSize();
         byte[] result = new byte[length];
+
         System.arraycopy(Utility.IntegerToTwoBytes(typeToInteger(type)), 0, result, 0, 2);
-        System.arraycopy(Utility.IntegerToTwoBytes(length-20), 0, result, 2, 2);
+        System.arraycopy(Utility.IntegerToTwoBytes(length - 20), 0, result, 2, 2);
         System.arraycopy(id, 0, result, 4, 16);
 
         // arraycopy of attributes
         int offset = 20;
+
         it = ma.keySet().iterator();
+
         while (it.hasNext()) {
             MessageAttribute attri = ma.get(it.next());
+
             System.arraycopy(attri.getBytes(), 0, result, offset, attri.getLength());
             offset += attri.getLength();
         }
+
         return result;
     }
 
@@ -139,37 +174,83 @@ public class MessageHeader implements MessageHeaderInterface {
         return getBytes().length;
     }
 
-    public static MessageHeader parseHeader(byte[] data) throws MessageHeaderParsingException, MessageAttributeParsingException {
+    public static MessageHeader parseHeader(byte[] data)
+            throws MessageHeaderParsingException, MessageAttributeParsingException {
         try {
-            MessageHeader mh = new MessageHeader();
-            byte[] typeArray = new byte[2];
+            MessageHeader mh        = new MessageHeader();
+            byte[]        typeArray = new byte[2];
+
             System.arraycopy(data, 0, typeArray, 0, 2);
+
             int type = Utility.TwoBytesToInteger(typeArray);
+
             switch (type) {
-            case BINDINGREQUEST: mh.setType(MessageHeaderType.BindingRequest); logger.finer("Binding Request received."); break;
-            case BINDINGRESPONSE: mh.setType(MessageHeaderType.BindingResponse); logger.finer("Binding Response received."); break;
-            case BINDINGERRORRESPONSE: mh.setType(MessageHeaderType.BindingErrorResponse); logger.finer("Binding Error Response received."); break;
-            case SHAREDSECRETREQUEST: mh.setType(MessageHeaderType.SharedSecretRequest); logger.finer("Shared Secret Request received."); break;
-            case SHAREDSECRETRESPONSE: mh.setType(MessageHeaderType.SharedSecretResponse); logger.finer("Shared Secret Response received."); break;
-            case SHAREDSECRETERRORRESPONSE: mh.setType(MessageHeaderType.SharedSecretErrorResponse); logger.finer("Shared Secret Error Response received.");break;
-            default: throw new MessageHeaderParsingException("Message type " + type + "is not supported");
+            case BINDINGREQUEST :
+                mh.setType(MessageHeaderType.BindingRequest);
+                logger.finer("Binding Request received.");
+
+                break;
+
+            case BINDINGRESPONSE :
+                mh.setType(MessageHeaderType.BindingResponse);
+                logger.finer("Binding Response received.");
+
+                break;
+
+            case BINDINGERRORRESPONSE :
+                mh.setType(MessageHeaderType.BindingErrorResponse);
+                logger.finer("Binding Error Response received.");
+
+                break;
+
+            case SHAREDSECRETREQUEST :
+                mh.setType(MessageHeaderType.SharedSecretRequest);
+                logger.finer("Shared Secret Request received.");
+
+                break;
+
+            case SHAREDSECRETRESPONSE :
+                mh.setType(MessageHeaderType.SharedSecretResponse);
+                logger.finer("Shared Secret Response received.");
+
+                break;
+
+            case SHAREDSECRETERRORRESPONSE :
+                mh.setType(MessageHeaderType.SharedSecretErrorResponse);
+                logger.finer("Shared Secret Error Response received.");
+
+                break;
+
+            default :
+                throw new MessageHeaderParsingException("Message type " + type
+                        + "is not supported");
             }
-             byte[] lengthArray = new byte[2];
+
+            byte[] lengthArray = new byte[2];
+
             System.arraycopy(data, 2, lengthArray, 0, 2);
+
             int length = Utility.TwoBytesToInteger(lengthArray);
+
             System.arraycopy(data, 4, mh.id, 0, 16);
+
             byte[] cuttedData;
-            int offset = 20;
+            int    offset = 20;
+
             while (length > 0) {
                 cuttedData = new byte[length];
                 System.arraycopy(data, offset, cuttedData, 0, length);
+
                 MessageAttribute ma = MessageAttribute.parseCommonHeader(cuttedData);
+
                 if (ma.getType() != MessageAttribute.MessageAttributeType.Dummy) {
                     mh.addMessageAttribute(ma);
                 }
+
                 length -= ma.getLength();
                 offset += ma.getLength();
             }
+
             return mh;
         } catch (UtilityException ue) {
             throw new MessageHeaderParsingException("Parsing error");
