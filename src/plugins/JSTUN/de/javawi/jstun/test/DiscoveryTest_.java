@@ -143,9 +143,11 @@ public class DiscoveryTest_ {
                 if ((ma == null) || (ca == null)) {
                     di.setError(
                         700,
-                        "The server is sending incomplete response (Mapped Address and Changed Address message attributes are missing). The client should not retry.");
+                        "The server is sending incomplete response (Mapped Address and Changed " +
+                        "Address message attributes are missing). The client should not retry.");
                     logger.config(
-                        "Response does not contain a mapped address or changed address message attribute.");
+                        "Response does not contain a mapped address or changed address message " +
+                        "attribute.");
 
                     return false;
                 } else {
@@ -178,7 +180,8 @@ public class DiscoveryTest_ {
 
                     // node is not capable of udp communication
                     logger.finer(
-                        "Test 1: Socket timeout while receiving the response. Maximum retry limit exceed. Give up.");
+                        "Test 1: Socket timeout while receiving the response. Maximum retry " +
+                        "limit exceed. Give up.");
                     di.setBlockedUDP();
                     logger.fine("Node is not capable of udp communication.");
 
@@ -253,7 +256,8 @@ public class DiscoveryTest_ {
                 if ( !nodeNatted) {
                     di.setOpenAccess();
                     logger.fine(
-                        "Node has open access to the internet (or, at least the node is a full-cone NAT without translation).");
+                        "Node has open access to the internet (or, at least the node is a " +
+                        "full-cone NAT without translation).");
                 } else {
                     di.setFullCone();
                     logger.fine("Node is behind a full-cone NAT.");
@@ -274,7 +278,8 @@ public class DiscoveryTest_ {
                     timeout = timeoutAddValue;
                 } else {
                     logger.finer(
-                        "Test 2: Socket timeout while receiving the response. Maximum retry limit exceed. Give up.");
+                        "Test 2: Socket timeout while receiving the response. Maximum retry " +
+                        "limit exceed. Give up.");
 
                     if ( !nodeNatted) {
                         di.setSymmetricUDPFirewall();
@@ -284,7 +289,8 @@ public class DiscoveryTest_ {
                     } else {
 
                         // not is natted
-                        // redo test 1 with address and port as offered in the changed-address message attribute
+                        // redo test 1 with address and port as offered in the
+                        // changed-address message attribute
                         return true;
                     }
                 }
@@ -346,7 +352,8 @@ public class DiscoveryTest_ {
                 if (ma2 == null) {
                     di.setError(
                         700,
-                        "The server is sending incomplete response (Mapped Address message attribute is missing). The client should not retry.");
+                        "The server is sending incomplete response (Mapped Address message " +
+                        "attribute is missing). The client should not retry.");
                     logger.config("Response does not contain a mapped address message attribute.");
 
                     return false;
@@ -365,7 +372,8 @@ public class DiscoveryTest_ {
             } catch (SocketTimeoutException ste2) {
                 if (timeSinceFirstTransmission < 7900) {
                     logger.config(
-                        "Test 1 redo with changed address: Socket timeout while receiving the response.");
+                        "Test 1 redo with changed address: Socket timeout while receiving the " +
+                        "response.");
                     timeSinceFirstTransmission += timeout;
 
                     int timeoutAddValue = (timeSinceFirstTransmission * 2);
@@ -379,7 +387,8 @@ public class DiscoveryTest_ {
 
                     // TODO: error handling here
                     logger.config(
-                        "Test 1 redo with changed address: Socket timeout while receiving the response.  Maximum retry limit exceed. Give up.");
+                        "Test 1 redo with changed address: Socket timeout while receiving the " +
+                        "response.  Maximum retry limit exceed. Give up.");
 
                     return false;
                 }
@@ -466,7 +475,8 @@ public class DiscoveryTest_ {
                     timeout = timeoutAddValue;
                 } else {
                     logger.finer(
-                        "Test 3: Socket timeout while receiving the response. Maximum retry limit exceed. Give up.");
+                        "Test 3: Socket timeout while receiving the response. Maximum retry " +
+                        "limit exceed. Give up.");
                     di.setPortRestrictedCone();
                     logger.fine("Node is behind a port restricted NAT.");
 

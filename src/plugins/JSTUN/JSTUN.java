@@ -381,9 +381,9 @@ public class JSTUN
                                                          "infobox-content");
 
                 jSTUNReportInfoboxHeader.addChild("#", "JSTUN detection report");
-                jSTUNReportInfoboxContent.addChild(
-                    "#",
-                    "There is no need for the plugin to determine your ip address: the node knows it.");
+                jSTUNReportInfoboxContent.addChild("#",
+                        "There is no need for the plugin to determine your ip address: the " +
+                        "node knows it.");
             }
         } else {
             HTMLNode jSTUNReportErrorInfobox = contentNode.addChild("div", "class",
