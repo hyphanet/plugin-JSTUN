@@ -48,7 +48,7 @@
 	<!-- ================================================== -->
 
 	<target name="unit-build" depends="compile" if="junit.present" unless="skip_tests">
-		<javac srcdir="src/" destdir="${build-test}" debug="on" optimize="on" source="1.5">
+		<javac srcdir="src/" destdir="${build-test}" debug="on" optimize="on" source="${source-version}">
 			<classpath>
 				<pathelement path="${build}"/>
 				<pathelement location="${freenet-ext.location}"/>
