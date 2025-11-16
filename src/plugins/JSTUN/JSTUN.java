@@ -1,13 +1,16 @@
 package plugins.JSTUN;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Vector;
 import java.util.Random;
 
@@ -28,6 +31,9 @@ import freenet.pluginmanager.PluginRespirator;
 import freenet.support.HTMLNode;
 import freenet.support.Logger;
 import freenet.support.api.HTTPRequest;
+
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 
 // threadless in the sense that it doesn't need a thread running all the time.
 // but getAddress() can and will block!
@@ -57,15 +63,13 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 	DetectedIP[] runTest(InetAddress iaddress) {
 		this.hasRunTestBeenCalled = true;
 		Random r = new Random(); // FIXME use something safer?
-		Vector v = new Vector(publicSTUNServers.length);
+		List<StunServer> v = new ArrayList<>(getStunServers());
 		Vector out = new Vector();
 		int countLikely = 0;
 		int countUnlikely = 0;
-		for(int i=0;i<publicSTUNServers.length;i++)
-			v.add(StunServer.parse(publicSTUNServers[i]));
 		while(!v.isEmpty()) {
 			if(WrapperManager.hasShutdownHookBeenTriggered()) return null;
-			StunServer stunServer = (StunServer) v.remove(r.nextInt(v.size()));
+			StunServer stunServer = v.remove(r.nextInt(v.size()));
 			try {
 				DiscoveryTest_ test = new DiscoveryTest_(iaddress, stunServer.getHostname(), stunServer.getPort());
 				// iphone-stun.freenet.de:3478
@@ -102,6 +106,16 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		}
 		System.err.println("STUN failed: likely detections="+countLikely+" unlikely detections="+countUnlikely);
 		return null;
+	}
+
+	private List<StunServer> getStunServers() {
+		try {
+			return StunServerList.loadStunServers("https://raw.githubusercontent.com/pradt2/always-online-stun/master/valid_hosts.txt");
+		} catch (IOException e) {
+			return stream(publicSTUNServers)
+					.map(StunServer::parse)
+					.collect(toList());
+		}
 	}
 
 	public static void main(String[] args) {
