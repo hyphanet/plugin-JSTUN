@@ -1,5 +1,6 @@
 package plugins.JSTUN;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +73,20 @@ public class StunServer {
 	@Override
 	public String toString() {
 		return hostname + ":" + port;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof StunServer)) {
+			return false;
+		}
+		StunServer that = (StunServer) o;
+		return port == that.port && Objects.equals(hostname, that.hostname);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hostname, port);
 	}
 
 	private StunServer(String hostname, int port) {

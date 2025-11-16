@@ -97,4 +97,45 @@ public class StunServerTest extends TestCase {
 		assertEquals("string representation", "[fc00::4567]:45678", stunServer.toString());
 	}
 
+	public void testHashcodeIsTheSameOnStunServersWithSameHostnameAndPort() {
+		int firstHashcode = StunServer.parse("host:1234").hashCode();
+		int secondHashcode = StunServer.parse("host:1234").hashCode();
+		assertEquals("hashcodes", firstHashcode, secondHashcode);
+	}
+
+	public void testHashcodeIsDifferentOnStunServersWithDifferentHostnames() {
+		int firstHashcode = StunServer.parse("host:1234").hashCode();
+		int secondHashcode = StunServer.parse("hostname:1234").hashCode();
+		assertFalse("hashcodes should not be equal", firstHashcode == secondHashcode);
+	}
+
+	public void testHashcodeIsDifferentOnStunServersWithDifferentPorts() {
+		int firstHashcode = StunServer.parse("host:1234").hashCode();
+		int secondHashcode = StunServer.parse("host").hashCode();
+		assertFalse("hashcodes should not be equal", firstHashcode == secondHashcode);
+	}
+
+	public void testEqualsDoesNotMatchNonStunServerObjects() {
+		StunServer stunServer = StunServer.parse("host:1234");
+		assertFalse("equals must be false", stunServer.equals(new Object()));
+	}
+
+	public void testEqualsDoesNotMatchIfHostnameIsDifferent() {
+		StunServer firstStunServer = StunServer.parse("host:1234");
+		StunServer secondStunServer = StunServer.parse("hostname:1234");
+		assertFalse("equals must be false", firstStunServer.equals(secondStunServer));
+	}
+
+	public void testEqualsDoesNotMatchIfPortIsDifferent() {
+		StunServer firstStunServer = StunServer.parse("host:1234");
+		StunServer secondStunServer = StunServer.parse("host");
+		assertFalse("equals must be false", firstStunServer.equals(secondStunServer));
+	}
+
+	public void testEqualsDoesMatchIfHostnameAndPortAreIdentical() {
+		StunServer firstStunServer = StunServer.parse("host:1234");
+		StunServer secondStunServer = StunServer.parse("host:1234");
+		assertEquals("equals must be true", firstStunServer, secondStunServer);
+	}
+
 }
