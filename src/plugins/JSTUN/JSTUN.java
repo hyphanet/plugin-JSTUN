@@ -35,7 +35,7 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 
 	// From http://code.google.com/p/natvpn/source/browse/trunk/stun_server_list
 	// TODO: Google STUN servers run on port 19302 instead of 3478. Is it worth supporting them?
-	static String[] publicSTUNServers = new String[] {
+	private static final String[] publicSTUNServers = new String[] {
 			"stun.voipbuster.com",
 			"stun.ekiga.net",
 			"stun.ideasip.com",
@@ -62,12 +62,12 @@ public class JSTUN implements FredPlugin, FredPluginIPDetector, FredPluginThread
 		int countLikely = 0;
 		int countUnlikely = 0;
 		for(int i=0;i<publicSTUNServers.length;i++)
-			v.add(publicSTUNServers[i]);
+			v.add(StunServer.parse(publicSTUNServers[i]));
 		while(!v.isEmpty()) {
 			if(WrapperManager.hasShutdownHookBeenTriggered()) return null;
-			String stunServer = (String) v.remove(r.nextInt(v.size()));
+			StunServer stunServer = (StunServer) v.remove(r.nextInt(v.size()));
 			try {
-				DiscoveryTest_ test = new DiscoveryTest_(iaddress, stunServer, 3478);
+				DiscoveryTest_ test = new DiscoveryTest_(iaddress, stunServer.getHostname(), stunServer.getPort());
 				// iphone-stun.freenet.de:3478
 				// larry.gloo.net:3478
 				// stun.xten.net:3478
